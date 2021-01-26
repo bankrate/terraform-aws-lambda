@@ -12,6 +12,7 @@ module "lambda" {
   timeout                        = var.timeout
   tags                           = var.tags
   vpc_config                     = var.vpc_config
+  resource_dependencies          = var.resource_dependencies
 }
 
 module "event-cloudwatch-scheduled-event" {

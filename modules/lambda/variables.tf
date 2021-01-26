@@ -67,3 +67,8 @@ variable "vpc_config" {
   default     = {}
 }
 
+variable "resource_dependencies" {
+  description = "Explicitly declare dependency on EFS mount target."
+  type        = list(string)
+  default     = []
+}
