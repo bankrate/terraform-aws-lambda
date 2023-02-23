@@ -18,4 +18,4 @@ module "lambda" {
   environment   = "qa"
   team_name     = "example"
   owner         = "example"
-}       
+}
