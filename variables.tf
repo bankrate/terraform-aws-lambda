@@ -106,8 +106,8 @@ variable "environment" {
 }
 
 variable "env_vars" {
-  description = "Environment variables in map(map(string))"
-  type        = map(map(string))
+  description = "Environment variables in map(string)"
+  type        = map(string)
   default     = {}
 }
 variable "schedule_expression" {
