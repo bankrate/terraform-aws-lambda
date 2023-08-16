@@ -18,8 +18,6 @@ checks:
   - aws_rds_cluster
   - aws_redshift_cluster
   - aws_s3_bucket
-
-
   severity: ERROR
   matchSpec:
     name: tags
@@ -29,4 +27,4 @@ checks:
     action: inModule
   errorMessage: The required CostCentre tag was missing
   relatedLinks:
-  - http://internal.acmecorp.com/standards/aws/tagging.html
+  - https://redventures.atlassian.net/wiki/spaces/FT/pages/99615081235/Finserv+Asset+Tagging
