@@ -1,0 +1,32 @@
+
+checks:
+- code: CU001
+  description: Custom check to ensure the CostCentre tag is applied to EC2 instances
+  impact: By not having CostCentre we can't keep track of billing
+  resolution: Add the CostCentre tag
+  requiredTypes:
+  - resource
+  requiredLabels:
+  - aws_dynamodb_table
+  - aws_ebs_volume
+  - aws_efs_file_system
+  - aws_eks_cluster
+  - aws_elasticache_cluster
+  - aws_instance
+  - aws_kinesis_stream
+  - aws_lambda_function
+  - aws_rds_cluster
+  - aws_redshift_cluster
+  - aws_s3_bucket
+
+
+  severity: ERROR
+  matchSpec:
+    name: tags
+    action: contains
+    value: CostCentre
+  matchSpec:
+    action: inModule
+  errorMessage: The required CostCentre tag was missing
+  relatedLinks:
+  - http://internal.acmecorp.com/standards/aws/tagging.html

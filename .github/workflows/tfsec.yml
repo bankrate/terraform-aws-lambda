@@ -1,0 +1,26 @@
+name: tfsec scan
+
+on:
+  push:
+    branches: [ master, main ]
+
+jobs:
+  tfsec:
+    name: tfsec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.tf_api_token }}
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform security scan
+        uses: triat/terraform-security-scan@v3.0.3
+        with:
+          tfsec_exclude: "AWS001,AWS002,AWS003,AWS004,AWS005,AWS006,AWS007,AWS008,AWS009,AWS010,AWS011,AWS012,AWS013,AWS014,AWS015,AWS016,AWS017,AWS018,AWS019,AWS020,AWS021,AWS022,AWS023,AWS024,AWS025"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
