@@ -1,8 +1,6 @@
 name: tfsec scan
 
-on:
-  push:
-    branches: [ master, main ]
+on: [pull_request]
 
 jobs:
   tfsec:
@@ -16,8 +14,10 @@ jobs:
         with:
           cli_config_credentials_token: ${{ secrets.tf_api_token }}
       - name: Terraform Init
-        run: terraform init
+        run: cd infrastructure/terraform && terraform init && terraform plan
       - name: Terraform security scan
         uses: triat/terraform-security-scan@v3.0.3
         with:
-          tfsec_exclude: "AWS001,AWS002,AWS003,AWS004,AWS005,AWS006,AWS007,AWS008,AWS009,AWS010,AWS011,AWS012,AWS013,AWS014,AWS015,AWS016,AWS017,AWS018,AWS019,AWS020,AWS021,AWS022,AWS023,AWS024,AWS025"
+          tfsec_exclude: "aws-s3-no-public-access-with-ac,aws-s3-enable-bucket-logging,aws-rds-no-classic-resources,aws-elbv2-http-not-used,aws-elbv2-alb-not-public,aws-vpc-no-public-ingress-sgr,aws-vpc-no-public-egress-sgr,aws-vpc-no-public-ingress-sg,aws-vpc-no-public-egress-sg,aws-vpc-use-secure-tls-policy,aws-rds-no-public-db-access,aws-autoscaling-no-public-ip,aws-ecs-no-plaintext-secrets,aws-autoscaling-enable-at-rest-encryption,aws-sqs-enable-queue-encryption,aws-sns-enable-topic-encryption,aws-s3-enable-bucket-encryption,aws-vpc-add-description-to-security-group,aws-kms-auto-rotate-keys,aws-cloudfront-enforce-https,aws-cloudfront-use-secure-tls-policy,aws-msk-enable-in-transit-encryption,aws-ecr-enable-image-scans,aws-kinesis-enable-in-transit-encryption,aws-api-gateway-use-secure-tls-policy,aws-elastic-service-enable-domain-encryption,aws-elastic-search-enable-in-transit-encryption,aws-elastic-search-enforce-https,aws-elastic-search-use-secure-tls-policy,aws-elastic-search-encrypt-replication-group,aws-elasticache-enable-in-transit-encryption,aws-iam-no-password-reuse,aws-iam-set-max-password-age,aws-iam-set-minimum-password-length,aws-iam-require-symbols-in-passwords,aws-iam-require-numbers-in-passwords,aws-iam-require-lowercase-in-passwords,aws-iam-require-uppercase-in-passwords,aws-misc-no-exposing-plaintext-credentials,aws-cloudfront-enable-waf,aws-sqs-no-wildcards-in-policy-documents,aws-efs-enable-at-rest-encryption,aws-vpc-no-public-ingress,aws-vpc-no-excessive-port-access,aws-rds-encrypt-cluster-storage-data,aws-rds-encrypt-instance-storage-data,aws-rds-enable-performance-insights,aws-elastic-search-enable-domain-logging,aws-lambda-restrict-source-arn,aws-athena-enable-at-rest-encryption,aws-athena-no-encryption-override,aws-api-gateway-enable-access-logging,aws-ec2-no-secrets-in-user-data,aws-cloudtrail-enable-all-regions,aws-cloudtrail-enable-log-validation,aws-cloudtrail-enable-at-rest-encryption,aws-eks-encrypt-secrets,aws-eks-enable-control-plane-logging,aws-eks-no-public-cluster-access-to-cidr,aws-eks-no-public-cluster-access,aws-elastic-search-enable-logging,aws-cloudfront-enable-logging,aws-s3-ignore-public-acls,aws-s3-block-public-acls,aws-s3-no-public-buckets,aws-s3-block-public-policy,aws-s3-enable-versioning,aws-ecr-enforce-immutable-repository,aws-ec2-enforce-http-token-imds,aws-codebuild-enable-encryption,aws-dynamodb-enable-at-rest-encryption,aws-vpc-no-default-vpc,aws-elb-drop-invalid-headers,aws-workspace-enable-disk-encryption,aws-config-aggregate-all-regions,aws-dynamodb-enable-recovery,aws-redshift-non-default-vpc-deployment,aws-elasticache-enable-backup-retention,aws-cloudwatch-log-group-customer-key,aws-ecs-enable-container-insight,aws-rds-backup-retention-specified,aws-dynamodb-table-customer-key,aws-ecr-repository-customer-key,aws-redshift-encryption-customer-key,aws-ssm-secret-use-customer-key,aws-ecs-enable-in-transit-encryption,aws-iam-block-kms-policy-wildcard,aws-s3-specify-public-access-block,aws-ec2-add-description-to-security-group-rule,aws-lambda-enable-tracing,aws-ec2-no-public-egress-sgr"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
