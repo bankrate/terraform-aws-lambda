@@ -1,6 +1,6 @@
 module "lambda" {
   source                         = "app.terraform.io/bankrate/lambda-function/aws"
-  version                        = "~> 4.0.0"
+  version                        = "~> 5.0"
   handler                        = var.handler
   publish                        = var.publish
   reserved_concurrent_executions = var.reserved_concurrent_executions
