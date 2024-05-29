@@ -35,6 +35,12 @@ variable architecture {
   }
 }
 
+variable cpu_architecture {
+  description = "(Optional) Instruction set architecture for your Lambda function. Valid values are 'x86_64' and 'arm64'. Default is 'x86_64'."
+  type        = string
+  default     = "x86_64"
+}
+
 variable "event_trigger_type" {
   default     = "dynamodb"
   description = ""
