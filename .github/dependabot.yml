@@ -1,0 +1,19 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "terraform"
+    schedule:
+      interval: "weekly"
+    registry: "https://registry.terraform.io"
+    token: "${{ secrets.TF_TOKEN }}"
+    directories:
+      - "/examples/example-with-cloudwatch-scheduled-event"
+      - "/examples/example-with-dynamo-event"
+      - "/examples/example-with-functionurl"
+      - "/examples/example-with-kinesis-event"
+      - "/examples/example-with-s3-event"
+      - "/examples/example-with-sqs-event"
+      - "/examples/example-with-vpc"
+      - "/examples/example-without-event"
+      - "/"
+
